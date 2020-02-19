@@ -1,3 +1,14 @@
+# Docker
+
+alias daws-create="bash ~/.daws-create.sh"
+alias daws-start="docker-machine start aws-docker && docker-machine regenerate-certs aws-docker --force"
+alias daws-connect="eval $(docker-machine env aws-docker) && docker-machine ssh aws-docker -f -N -L 8888:localhost:8888"
+alias daws-push="bash ~/.daws-push.sh"
+alias daws-pull="bash ~/.daws-pull.sh"
+alias daws-run="docker run --rm -p 8888:8888 -p 8000:8000  --name jupyter_server -v /home/ubuntu/work:/home/jovyan/work -v /home/ubuntu/jupyter_config:/home/jovyan/.jupyter -v /tmp:/tmp easyjupyter/easyjupyter start.sh jupyter notebook --NotebookApp.token='' --NotebookApp.notebook_dir='~/work' --NotebookApp.ip='0.0.0.0' --NotebookApp.allow_origin='https://colab.research.google.com' --NotebookApp.port_retries=0"
+alias daws-run-local="docker run --rm -p 8888:8888 -p 8000:8000 --name jupyter_server -v $(PWD):/home/jovyan/work -v /Users/joshbroomberg/Documents/easy-jupyter/src/jupyter_config/:/home/jovyan/.jupyter -v /tmp:/tmp easyjupyter/easyjupyter start.sh jupyter notebook --NotebookApp.token='' --NotebookApp.notebook_dir='~/work' --NotebookApp.ip='0.0.0.0' --NotebookApp.allow_origin='https://colab.research.google.com' --NotebookApp.port_retries=0"
+alias daws-stop="docker-machine stop aws-docker && eval $(docker-machine env -u)"
+
 export PATH=~/Library/Python/3.7/bin:$PATH
 
 # AUTOADDED RVM
