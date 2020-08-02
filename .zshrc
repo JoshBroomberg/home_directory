@@ -9,11 +9,13 @@ export ZSH="/Users/joshuabroomberg/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv virtualenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv virtualenv pyenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=’red’
+
+export TERM="xterm-256color"
 
 # Add a space in the first prompt
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%f"
@@ -93,6 +95,16 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Unique tab history
+unsetopt inc_append_history
+unsetopt share_history
+
+# Status bar
+source $HOME/.iterm2_shell_integration.zsh
+iterm2_print_user_vars() {
+  iterm2_set_user_var xx yy
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -129,13 +141,31 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 # alias pip=/usr/local/bin/pip3
 # alias python=/usr/local/bin/python3
 
+# Right way (personal)
 # (right way - pyenv)
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+#if command -v pyenv 1>/dev/null 2>&1; then
+#  eval "$(pyenv init -)"
+#fi
 
 # virtualenv wrapper
 # https://opensource.com/article/19/6/python-virtual-environments-mac
-export WORKON_HOME=~/.virtualenvs
-mkdir -p $WORKON_HOME
-source ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+# export WORKON_HOME=~/.virtualenvs
+# mkdir -p $WORKON_HOME
+# source ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+
+# Domino config
+
+# pyenv
+
+# jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# Launch tmux  with domino dev
+alias domino-up="tmux new -s mysession teamocil domino"
+alias domino-cd="cd ~/Documents/Domino.nosync"
+
+# Platform repo
+export PATH="$PATH:/Users/joshuabroomberg/Documents/Domino.nosync/platform-apps/bin"
+eval "$(pyenv init -)"
+test -e /Users/joshuabroomberg/.iterm2_shell_integration.zsh && source /Users/joshuabroomberg/.iterm2_shell_integration.zsh || true
