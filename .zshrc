@@ -161,11 +161,29 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
-# Launch tmux  with domino dev
-alias domino-up="tmux new -s mysession teamocil domino"
-alias domino-cd="cd ~/Documents/Domino.nosync"
+# Domino dev command
+alias domino-frontend="./build/clean_frontend_assets.sh && dev/start-frontend-dev.sh"
+alias domino-backend="./sbt-minikube"
+alias domino-cd="cd ~/work/Domino/domino"
+alias domino-up="/Applications/iTerm.app/Contents/Resources/it2run /Users/joshuabroomberg/Library/ApplicationSupport/iTerm2/Scripts/domino.py"
+# alias domino-up="tmux new -s mysession teamocil domino"
 
 # Platform repo
 export PATH="$PATH:/Users/joshuabroomberg/Documents/Domino.nosync/platform-apps/bin"
 eval "$(pyenv init -)"
 test -e /Users/joshuabroomberg/.iterm2_shell_integration.zsh && source /Users/joshuabroomberg/.iterm2_shell_integration.zsh || true
+
+# Git
+git() {
+    if [[ $@ == "st" ]]; then
+        command git status
+    elif [[ $1 == "ac" ]]; then
+        command git add .; git commit -m "$2"
+    elif [[ $1 == "c" ]]; then
+        command git commit -m "$2"
+    elif [[ $1 == "ammend" ]]; then
+        command git commit --amend --no-edit 
+    else
+        command git "$@"
+    fi
+}
